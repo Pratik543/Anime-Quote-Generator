@@ -1,5 +1,3 @@
-import "./style.css";
-
 const quoteText = document.getElementById("quote");
 const authorText = document.getElementById("author");
 const quoteAnimeText = document.getElementById("anime");
