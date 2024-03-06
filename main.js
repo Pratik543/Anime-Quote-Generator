@@ -15,10 +15,15 @@ const getQuote = async (apiUrl) => {
     quoteText.textContent = apiQuote;
     authorText.textContent = `By: ${apiAuthor}`;
     quoteAnimeText.textContent = `From: ${apiAnime}`;
+    hideLoadingAnimation();
     // console.log(apiData);
   } catch (error) {
     console.log(error);
   }
 };
+
+function hideLoadingAnimation() {
+  document.getElementById("arc").style.display = "none";
+}
 
 getQuote(apiUrl);
