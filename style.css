@@ -1,0 +1,282 @@
+/* This is a very simple yet important reset that removes all the default styles. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font: inherit;
+}
+
+html {
+  color-scheme: dark light;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  shape-margin: 0.75rem;
+}
+
+:root {
+  --text-color: #a1a1a1;
+  --accent-color: #2e2c2c;
+  --geist-foreground-rgb: 255, 255, 255;
+  --border-radius: 12px;
+}
+
+body {
+  background: rgb(62, 78, 81);
+  background: linear-gradient(
+    90deg,
+    rgba(62, 78, 81, 1) 5%,
+    rgba(24, 24, 26, 1) 100%
+  );
+  color: #fff;
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.quote__container {
+  width: auto;
+  max-width: 900px;
+  padding: 20px 30px;
+}
+
+.quote__text {
+  font-size: 2rem;
+}
+
+.quote__author {
+  margin-top: 15px;
+  font-size: 1.5rem;
+  font-style: italic;
+  text-align: right;
+}
+
+#author,
+#anime {
+  text-align: right;
+  font-size: 1.5rem;
+  font-style: italic;
+}
+
+h2 {
+  font-size: 1.8rem !important;
+}
+
+.logo {
+  max-width: 5rem;
+}
+
+.gradient-border-card {
+  position: relative;
+  border-radius: var(--border-radius);
+  transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 0 0 1px transparent, 0 2px 4px transparent,
+    0 12px 24px transparent;
+  cursor: pointer;
+  height: 100%;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 0;
+    background-position: -50%;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  15% {
+    opacity: 0;
+    background-position: 150%;
+  }
+  20% {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.gradient-border-card .shimmer {
+  background: linear-gradient(
+    112deg,
+    transparent 30%,
+    rgba(var(--geist-foreground-rgb), 0.1) 40%,
+    rgba(var(--geist-foreground-rgb), 0.3) 50%,
+    rgba(var(--geist-foreground-rgb), 0.1) 60%,
+    transparent 80%
+  );
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  border-radius: inherit;
+  background-size: 200% auto;
+  background-position: 0;
+  animation: shimmer 12s cubic-bezier(0.8, 0, 0.05, 1) infinite;
+  /* animation-delay: var(--delay); */
+}
+
+.gradient-border-card .icon {
+  position: relative;
+  display: inline-flex;
+  font: 20px;
+  padding: 0.75rem;
+  border-radius: 50%;
+  margin-bottom: 0.75rem;
+}
+.gradient-border-card p {
+  color: var(--text-color);
+}
+.gradient-border-card:before,
+.gradient-border-card .icon:before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    75% 75% at 25% 15%,
+    #fff 0,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  -webkit-mask: linear-gradient(#000, #000) content-box,
+    linear-gradient(#000, #000);
+  mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.gradient-border-card:hover {
+  background: var(--accent-color);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05),
+    0 12px 24px rgba(0, 0, 0, 0.05);
+}
+
+/* Gradient Animation Button*/
+button {
+  border: 0;
+  position: relative;
+  border-radius: 12px;
+  color: #fff;
+  background: #000;
+  padding: 0 16px;
+  margin-top: 0.75rem;
+  box-shadow: 0 0 0 1px 0 0 0 1px rgba(255, 255, 255, 0.14);
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+  transition-property: border-color, background, color, transform, box-shadow;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+  font-size: 16px;
+  line-height: 50px;
+  height: 50px;
+  width: 100%;
+  max-width: 250px;
+  transition: 0.25s;
+}
+
+.highlight-bg {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  left: 1px;
+  background: inherit;
+  border-radius: 12px;
+  background: linear-gradient(-90deg, #007cf0, #00dfd8, #ff0080, #007cf0);
+  background-size: 400% 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  animation: background-anim 8s ease-in-out infinite;
+}
+
+.button-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.highlight-bg:after {
+  content: "";
+  position: absolute;
+  background-size: inherit;
+  background-image: inherit;
+  animation: inherit;
+  left: 0;
+  right: 0;
+  top: 2px;
+  height: 100%;
+  filter: blur(0.5rem);
+  transition: 0.25s;
+}
+
+@keyframes background-anim {
+  50% {
+    background-position: 140% 50%;
+    transform: skew(-2deg);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .quote__container,
+  .gradient-border-card {
+    margin: auto 20px;
+  }
+  .quote__text {
+    font-size: 1.5rem;
+  }
+  .quote__author {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  :has(:target) {
+    scroll-behavior: smooth;
+  }
+}
