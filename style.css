@@ -76,25 +76,13 @@ body {
 }
 
 .quote__author {
-  margin-top: 15px;
   font-size: 1.5rem;
   font-style: italic;
   text-align: right;
-}
-
-#author,
-#anime {
-  text-align: right;
-  font-size: 1.5rem;
-  font-style: italic;
 }
 
 h2 {
   font-size: 1.8rem !important;
-}
-
-.logo {
-  max-width: 5rem;
 }
 
 .gradient-border-card {
@@ -148,7 +136,6 @@ h2 {
   background-size: 200% auto;
   background-position: 0;
   animation: shimmer 12s cubic-bezier(0.8, 0, 0.05, 1) infinite;
-  /* animation-delay: var(--delay); */
 }
 
 .gradient-border-card .icon {
@@ -162,6 +149,7 @@ h2 {
 .gradient-border-card p {
   color: var(--text-color);
 }
+
 .gradient-border-card:before,
 .gradient-border-card .icon:before {
   content: "";
@@ -263,7 +251,7 @@ button {
 }
 
 /* Loader */
-#arc:before {
+/* #arc:before {
   -webkit-animation: spin 0.5s infinite linear;
   animation: spin 0.5s infinite linear;
   border-radius: 100%;
@@ -287,8 +275,44 @@ button {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+} */
+
+/* Skeleton Animation */
+.quote__skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  animation: pulse 1.5s infinite linear;
+  height: auto;
+}
+.small_container_skeleton {
+  width: 50%;
+  float: right;
 }
 
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.3;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 @media screen and (max-width: 1000px) {
   .quote__container,
   .gradient-border-card {
