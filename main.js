@@ -20,7 +20,9 @@ const getQuote = async (apiUrl) => {
     removeLoadingAnimation();
     // console.log(apiData);
   } catch (error) {
-    console.log(error);
+    // console.log(error.message);
+    quoteText.textContent = `${error.message}. Please try again later.`;
+    removeLoadingAnimation();
   }
 };
 
