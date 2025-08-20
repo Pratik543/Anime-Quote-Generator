@@ -2,6 +2,8 @@ const quoteText = document.getElementById("quote");
 const authorContainer = document.querySelector(".quote__author");
 const authorText = document.getElementById("author");
 const quoteAnimeText = document.getElementById("anime");
+const generateBtn = document.getElementById("generate-btn");
+const copyBtn = document.getElementById("copy-btn");
 
 const apiUrl = "https://animechan.xyz/api/random";
 
@@ -9,19 +11,96 @@ const getQuote = async (apiUrl) => {
   try {
     showLoadingAnimation();
     const response = await fetch(apiUrl);
-    const apiData = await response.json();
-    var apiQuote = apiData.quote;
-    var apiAuthor = apiData.character;
-    var apiAnime = apiData.anime;
+    const { quote, character, anime } = await response.json();
 
-    quoteText.textContent = apiQuote;
-    authorText.textContent = `By: ${apiAuthor}`;
-    quoteAnimeText.textContent = `From: ${apiAnime}`;
+    quoteText.textContent = quote;
+    authorText.textContent = `By: ${character}`;
+    quoteAnimeText.textContent = `From: ${anime}`;
     removeLoadingAnimation();
-    // console.log(apiData);
   } catch (error) {
     // console.log(error.message);
-    quoteText.textContent = `${error.message}. Please try again later.`;
+    console.log(`Api is not working. Error message:${error.message}`);
+    // quoteText.textContent = `${error.message}. Please try again later.`;
+
+    // Fall Back if api don't works
+    const quotes = [
+      {
+        quote:
+          "It's not the face that makes someone a monster; it's the choices they make with their lives.",
+        character: "Naruto Uzumaki",
+        anime: "Naruto",
+        image: "https://i.imgur.com/J3Os8G8.png",
+      },
+      {
+        quote: "If you don't take risks, you can't create a future!",
+        character: "Monkey D. Luffy",
+        anime: "One Piece",
+        image: "https://i.imgur.com/3JdQ9Xj.png",
+      },
+      {
+        quote:
+          "The world isn't perfect. But it's there for us, doing the best it can. That's what makes it so damn beautiful.",
+        character: "Roy Mustang",
+        anime: "Fullmetal Alchemist: Brotherhood",
+        image: "https://i.imgur.com/5ZQvBQy.png",
+      },
+      {
+        quote:
+          "Hard work is worthless for those that don't believe in themselves.",
+        character: "Naruto Uzumaki",
+        anime: "Naruto",
+        image: "https://i.imgur.com/J3Os8G8.png",
+      },
+      {
+        quote:
+          "Knowing you're different is only the beginning. If you accept these differences you'll be able to get past them and grow even closer.",
+        character: "Miss Kobayashi",
+        anime: "Miss Kobayashi's Dragon Maid",
+        image: "https://i.imgur.com/8XZuLqk.png",
+      },
+      {
+        quote:
+          "Sometimes I do feel like I'm a failure. Like there's no hope for me. But even so, I'm not gonna give up. Ever!",
+        character: "Izuku Midoriya",
+        anime: "My Hero Academia",
+        image: "https://i.imgur.com/9QY7rFm.png",
+      },
+      {
+        quote:
+          "The moment you think of giving up, think of the reason why you held on so long.",
+        character: "Natsu Dragneel",
+        anime: "Fairy Tail",
+        image: "https://i.imgur.com/4tR1WJD.png",
+      },
+      {
+        quote:
+          "Fear is not evil. It tells you what weakness is. And once you know your weakness, you can become stronger as well as kinder.",
+        character: "Gildarts Clive",
+        anime: "Fairy Tail",
+        image: "https://i.imgur.com/4tR1WJD.png",
+      },
+      {
+        quote:
+          "No matter how hard or impossible it is, never lose sight of your goal.",
+        character: "Eren Yeager",
+        anime: "Attack on Titan",
+        image: "https://i.imgur.com/7VYg5yP.png",
+      },
+      {
+        quote:
+          "If you only face forward, there is nothing you cannot overcome.",
+        character: "Roronoa Zoro",
+        anime: "One Piece",
+        image: "https://i.imgur.com/3JdQ9Xj.png",
+      },
+    ];
+
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const randomQuote = quotes[randomIndex];
+
+    quoteText.textContent = randomQuote.quote;
+    authorText.textContent = `By: ${randomQuote.character}`;
+    quoteAnimeText.textContent = `From: ${randomQuote.anime}`;
     removeLoadingAnimation();
   }
 };
@@ -34,13 +113,30 @@ function showLoadingAnimation() {
 }
 
 function removeLoadingAnimation() {
-  document
-    .getElementsByClassName("quote__skeleton")[0]
-    .classList.remove("quote__skeleton");
-  quoteText.classList.remove("quote__skeleton");
+  // Get all elements with the skeleton class and remove it
+  const skeletonElements = document.querySelectorAll(".quote__skeleton");
+  skeletonElements.forEach((element) => {
+    element.classList.remove("quote__skeleton");
+  });
+
   authorContainer.classList.remove("small_container_skeleton");
-  authorText.classList.remove("quote__skeleton");
-  quoteAnimeText.classList.remove("quote__skeleton");
+}
+// Copy Quote to Clipboard
+function copyQuote() {
+  navigator.clipboard.writeText(quoteText.textContent).then(() => {
+    // Change button text temporarily
+    const originalText = copyBtn.innerHTML;
+    copyBtn.innerHTML = "Copied!";
+    setTimeout(() => {
+      copyBtn.innerHTML = originalText;
+    }, 2000);
+  });
 }
 
 getQuote(apiUrl);
+generateBtn.addEventListener("click", () => {
+  getQuote(apiUrl);
+});
+copyBtn.addEventListener("click", () => {
+  copyQuote();
+});

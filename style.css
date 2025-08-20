@@ -91,7 +91,6 @@ h2 {
   transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   box-shadow: 0 0 0 1px transparent, 0 2px 4px transparent,
     0 12px 24px transparent;
-  cursor: pointer;
   height: 100%;
   z-index: 1;
 }
@@ -199,6 +198,7 @@ button {
   width: 100%;
   max-width: 250px;
   transition: 0.25s;
+  cursor: pointer;
 }
 
 .highlight-bg {
@@ -249,33 +249,6 @@ button {
     transform: skew(-2deg);
   }
 }
-
-/* Loader */
-/* #arc:before {
-  -webkit-animation: spin 0.5s infinite linear;
-  animation: spin 0.5s infinite linear;
-  border-radius: 100%;
-  border-top: 6px solid var(--text-color, #fff);
-  content: "";
-  display: block;
-  height: 50px;
-  width: 50px;
-  margin: 10px auto;
-}
-
-@-webkit-keyframes spin {
-  to {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  to {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-} */
 
 /* Skeleton Animation */
 .quote__skeleton {
