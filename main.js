@@ -5,22 +5,33 @@ const quoteAnimeText = document.getElementById("anime");
 const generateBtn = document.getElementById("generate-btn");
 const copyBtn = document.getElementById("copy-btn");
 
-const apiUrl = "https://animechan.xyz/api/random";
+const apiUrl = "https://yurippe.vercel.app/api/quotes";
 
 const getQuote = async (apiUrl) => {
   try {
     showLoadingAnimation();
-    const response = await fetch(apiUrl);
-    const { quote, character, anime } = await response.json();
+    await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        // console.log(data[randomIndex]);
+        const { quote, character, show } = data[randomIndex];
 
-    quoteText.textContent = quote;
-    authorText.textContent = `By: ${character}`;
-    quoteAnimeText.textContent = `From: ${anime}`;
+        quoteText.textContent = quote;
+        authorText.textContent = `By: ${character}`;
+        quoteAnimeText.textContent = `From: ${show}`;
+      });
+    console.log("used api");
     removeLoadingAnimation();
   } catch (error) {
     // console.log(error.message);
-    console.log(`Api is not working. Error message:${error.message}`);
-    // quoteText.textContent = `${error.message}. Please try again later.`;
+    console.warn(`Api is not working. Error message:${error.message}`);
+    quoteText.textContent = `${error.message}. Please try again later.`;
 
     // Fall Back if api don't works
     const quotes = [
@@ -101,6 +112,7 @@ const getQuote = async (apiUrl) => {
     quoteText.textContent = randomQuote.quote;
     authorText.textContent = `By: ${randomQuote.character}`;
     quoteAnimeText.textContent = `From: ${randomQuote.anime}`;
+    console.log("used fallback quotes");
     removeLoadingAnimation();
   }
 };
@@ -123,19 +135,18 @@ function removeLoadingAnimation() {
 }
 // Copy Quote to Clipboard
 function copyQuote() {
-  navigator.clipboard.writeText(quoteText.textContent).then(() => {
-    // Change button text temporarily
-    const originalText = copyBtn.innerHTML;
-    copyBtn.innerHTML = "Copied!";
-    setTimeout(() => {
-      copyBtn.innerHTML = originalText;
-    }, 2000);
-  });
+  navigator.clipboard.writeText(quoteText.textContent);
+  // Change button text temporarily
+  const originalText = copyBtn.innerText;
+  copyBtn.innerText = "Copied!";
+  setTimeout(() => {
+    copyBtn.innerText = originalText;
+  }, 2000);
 }
 
 getQuote(apiUrl);
 generateBtn.addEventListener("click", () => {
-  getQuote(apiUrl);
+  location.reload();
 });
 copyBtn.addEventListener("click", () => {
   copyQuote();
